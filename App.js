@@ -1,10 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import Home from "./src/screens/Home/Home";
+
+const Stack = createStackNavigator();
 
 let customFonts = {
   "Poppins-Regular": require("./assets/fonts/Poppins-Regular.otf"),
@@ -27,7 +30,13 @@ class App extends React.Component {
 
   render() {
     if (this.state.fontsLoaded) {
-      return <Home />;
+      return (
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home" headerMode="none">
+            <Stack.Screen name="Home" component={Home} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      );
     } else {
       return <AppLoading />;
     }
